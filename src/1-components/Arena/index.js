@@ -6,7 +6,7 @@ import dimensions from '../constants';
 export default function Arena() {
   let cells = getCells();
   return (
-    <Container size={dimensions.arena_size}>
+    <Container size={`${dimensions.arena_size}px`}>
       {cells.map((cell) => {
         return <>{renderCell(cell)}</>;
       })}
@@ -15,8 +15,11 @@ export default function Arena() {
 
   function getCells() {
     let w = { top: true, right: true, bottom: true, left: true };
+    const { cell_size, arena_size } = dimensions;
+    const num_cells = Math.pow(arena_size / cell_size, 2);
+    console.log(num_cells);
     const cells = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < num_cells; i++) {
       cells.push(w);
     }
     return cells;

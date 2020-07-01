@@ -1,5 +1,5 @@
-const arena_size = '400px';
-const cell_size = '40px';
+const arena_size = 400;
+const cell_size = 40;
 
 const dimensions = {
   arena_size,

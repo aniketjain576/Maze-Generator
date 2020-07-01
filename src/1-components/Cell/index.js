@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import dimensions from '../constants';
 
 const Cell = ({ wallsToShow }) => {
-  return <CellWrapper size={dimensions.cell_size} walls={wallsToShow} />;
+  return <CellWrapper size={`${dimensions.cell_size}px`} walls={wallsToShow} />;
 };
 
 export default Cell;
