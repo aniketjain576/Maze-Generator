@@ -1,10 +1,18 @@
 import React from 'react';
+// import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import rootReducer from './rootReducer';
+import Arena from './1-components/Arena/index';
+
+// const store = createStore(rootReducer);
 
 function App() {
   return (
-    <div>
-      <header>root in App.js</header>
-    </div>
+    // <Provider store={store}>
+    <>
+      <Arena />
+    </>
+    // </Provider>
   );
 }
 
