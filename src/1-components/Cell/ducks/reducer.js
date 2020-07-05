@@ -10,9 +10,11 @@ export default function arenaReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
+      const new_cells = state.cells;
+      new_cells[payload.index] = payload.cell;
       return {
         ...state,
-        cells: payload.cells,
+        cells: new_cells,
       };
     }
     default:

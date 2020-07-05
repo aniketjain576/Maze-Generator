@@ -1,10 +1,11 @@
 import { UPDATED_CELL } from './types';
 
-export function doUpdateCell(cells) {
+export function doUpdateCell(cell, index) {
   return {
     type: UPDATED_CELL,
     payload: {
-      cells: cells,
+      cell: cell,
+      index: index,
     },
   };
 }
