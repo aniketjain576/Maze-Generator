@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import dimensions from '../constants';
 
-const Cell = ({ wallsToShow }) => {
+const Cell = ({ wallsToShow, visited }) => {
   return <CellWrapper size={`${dimensions.cell_size}px`} walls={wallsToShow} />;
 };
 
