@@ -24,8 +24,8 @@ export default function arenaReducer(state = initialState, action) {
 
 function getInitState() {
   //each cell is stored as an object describing which walls are visible
-  //and whether it's been visited
-  //initially all cells are visible
+  //and whether the cell has been visited
+  //initially all cells are visible and unvisited
   const cell = {
     walls: {
       top: true,
