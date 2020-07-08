@@ -5,8 +5,8 @@ const initialState = {
   cells: getInitState(),
 };
 
-export default function arenaReducer(state = initialState, action) {
-  //payload should have new array of cells
+export default function cellReducer(state = initialState, action) {
+  //payload should have new cell
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
