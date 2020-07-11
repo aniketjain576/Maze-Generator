@@ -6,18 +6,18 @@ import { connect } from 'react-redux';
 import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/index';
 
 const select = (state) => ({
-  cells: state.arena.cells,
+  arena: state.arena,
 });
 
 const actions = {
   recursiveBacktracking: doRecursiveBacktracking,
 };
 
-function Arena({ cells, recursiveBacktracking }) {
+function Arena({ arena, recursiveBacktracking }) {
   return (
     <>
       <Container size={`${dimensions.arena_size}px`}>
-        {cells.map((cell) => {
+        {arena.cells.map((cell) => {
           return <>{renderCell(cell)}</>;
         })}
       </Container>

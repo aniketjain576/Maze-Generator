@@ -38,10 +38,19 @@ function getInitState() {
 
   const { num_cells } = dimensions;
 
-  const cells = [];
+  let cells = [];
 
   for (var i = 0; i < num_cells; i++) {
     cells.push(cell);
   }
+  let index = -1;
+  cells = cells.map((cell) => {
+    index++;
+    return {
+      ...cell,
+      index: index,
+    };
+  });
+
   return cells;
 }
