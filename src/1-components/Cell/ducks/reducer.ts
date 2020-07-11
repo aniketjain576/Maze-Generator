@@ -1,17 +1,20 @@
 import { UPDATED_CELL } from './types';
 import dimensions from '../../constants';
+import { Cell, Action } from '../../interfaces';
 
-const initialState = {
+const initialState: { cells: Cell[] } = {
   cells: getInitState(),
 };
 
-export default function cellReducer(state = initialState, action) {
+export default function cellReducer(state = initialState, action: Action) {
   //payload should have new cell
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
       const new_cells = state.cells;
-      new_cells[payload.index] = payload.cell;
+      let { index, cell } = payload;
+      new_cells[index] = cell ? cell : new_cells[index];
+
       return {
         ...state,
         cells: new_cells,
@@ -22,7 +25,7 @@ export default function cellReducer(state = initialState, action) {
   }
 }
 
-function getInitState() {
+function getInitState(): Cell[] {
   //each cell is stored as an object describing which walls are visible
   //and whether the cell has been visited
   //initially all cells are visible and unvisited

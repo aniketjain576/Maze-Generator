@@ -2,23 +2,35 @@ import React from 'react';
 import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
 import dimensions from '../constants';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/index';
+import { Cell } from '../interfaces';
 
-const select = (state) => ({
-  arena: state.arena,
+const select = (state: RootStateOrAny) => ({
+  cells: state.arena.cells,
+  currentCell: state.currentCell.currentCellIndex,
 });
 
 const actions = {
   recursiveBacktracking: doRecursiveBacktracking,
 };
 
-function Arena({ arena, recursiveBacktracking }) {
+function Arena({
+  cells,
+  currentCell,
+  recursiveBacktracking,
+}: {
+  cells: Cell[];
+  currentCell: number;
+  recursiveBacktracking: () => void;
+}) {
   return (
     <>
       <Container size={`${dimensions.arena_size}px`}>
-        {arena.cells.map((cell) => {
-          return <>{renderCell(cell)}</>;
+        {cells.map((cell: Cell) => {
+          console.log(cell.index);
+          const current = cell.index === currentCell;
+          return <>{renderCell(cell, current)}</>;
         })}
       </Container>
       <Button onClick={recursiveBacktracking}>Start</Button>
@@ -28,7 +40,7 @@ function Arena({ arena, recursiveBacktracking }) {
 
 export default connect(select, actions)(Arena);
 
-const Container = styled.div`
+const Container = styled.div<{ size: string }>`
   display: flex;
   flex-wrap: wrap;
   border: 2px solid #000;
