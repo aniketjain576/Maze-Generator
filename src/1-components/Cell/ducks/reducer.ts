@@ -40,11 +40,11 @@ function getInitState(): Cell[] {
     visited: false,
   };
 
-  const { num_cells } = dimensions;
+  const { TOTAL_NUM_CELLS } = dimensions;
 
   let cells = [];
 
-  for (var i = 0; i < num_cells; i++) {
+  for (var i = 0; i < TOTAL_NUM_CELLS; i++) {
     cells.push(cell);
   }
   let index = -1;

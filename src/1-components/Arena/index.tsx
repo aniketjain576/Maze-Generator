@@ -15,7 +15,7 @@ const actions = {
   recursiveBacktracking: doRecursiveBacktracking,
 };
 
-function Arena({
+function Grid({
   arena,
   currentCell,
   recursiveBacktracking,
@@ -26,7 +26,7 @@ function Arena({
 }) {
   return (
     <>
-      <Container size={`${dimensions.arena_size}px`}>
+      <Container size={`${dimensions.GRID_SIZE}px`}>
         {arena.cells.map((cell: Cell) => {
           console.log(cell);
           const current = cell.index === currentCell;
@@ -38,7 +38,7 @@ function Arena({
   );
 }
 
-export default connect(select, actions)(Arena);
+export default connect(select, actions)(Grid);
 
 const Container = styled.div<{ size: string }>`
   display: flex;

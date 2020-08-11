@@ -14,7 +14,7 @@ const Cell = ({
 }) => {
   return (
     <CellWrapper
-      size={`${dimensions.cell_size}px`}
+      size={`${dimensions.CELL_SIZE}px`}
       walls={wallsToShow}
       visited={visited}
       currentCell={currentCell}
