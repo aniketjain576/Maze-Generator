@@ -3,7 +3,7 @@ import { Cell, NormalThunk } from '../../../interfaces';
 
 export function doSetCurrentCell(index: number): NormalThunk {
   return (dispatch, getState) => {
-    const currentCell = getState().arena.cells.find(
+    const currentCell = getState().grid.cells.find(
       (cell: Cell) => cell.index === index
     );
     currentCell.visited = true;

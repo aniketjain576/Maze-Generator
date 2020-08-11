@@ -4,7 +4,7 @@ import { doSetCurrentCell } from '../actions';
 
 export function doRecursiveBacktracking(): NormalThunk {
   return (dispatch, getState) => {
-    let cells = getState().arena.cells;
+    let cells = getState().grid.cells;
     let cell: Cell = cells[0];
     let walls = cell.walls;
     let index = 5;
