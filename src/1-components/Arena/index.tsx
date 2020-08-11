@@ -7,7 +7,7 @@ import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/i
 import { Cell } from '../interfaces';
 
 const select = (state: RootStateOrAny) => ({
-  cells: state.arena.cells,
+  arena: state.arena,
   currentCell: state.currentCell.currentCellIndex,
 });
 
@@ -16,19 +16,19 @@ const actions = {
 };
 
 function Arena({
-  cells,
+  arena,
   currentCell,
   recursiveBacktracking,
 }: {
-  cells: Cell[];
+  arena: any;
   currentCell: number;
   recursiveBacktracking: () => void;
 }) {
   return (
     <>
       <Container size={`${dimensions.arena_size}px`}>
-        {cells.map((cell: Cell) => {
-          console.log(cell.index);
+        {arena.cells.map((cell: Cell) => {
+          console.log(cell);
           const current = cell.index === currentCell;
           return <>{renderCell(cell, current)}</>;
         })}

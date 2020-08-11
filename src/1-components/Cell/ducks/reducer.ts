@@ -14,6 +14,7 @@ export default function cellReducer(state = initialState, action: Action) {
       const new_cells = state.cells;
       let { index, cell } = payload;
       new_cells[index] = cell ? cell : new_cells[index];
+      console.log(new_cells);
 
       return {
         ...state,
