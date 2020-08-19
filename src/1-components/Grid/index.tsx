@@ -30,7 +30,7 @@ function Grid({
         {grid.cells.map((cell: Cell) => {
           console.log(cell);
           const current = cell.index === currentCell;
-          return <>{renderCell(cell, current)}</>;
+          return <>{renderCell(cell)}</>;
         })}
       </Container>
       <Button onClick={recursiveBacktracking}>Start</Button>

@@ -2,33 +2,40 @@ import React from 'react';
 import styled from '@emotion/styled';
 import dimensions from '../constants';
 import { Walls } from '../interfaces';
+import { RootStateOrAny, connect } from 'react-redux';
+
+const select = (state: RootStateOrAny) => ({
+  currentCell: state.currentCell.currentCellIndex,
+});
 
 const Cell = ({
   wallsToShow,
   visited,
+  index,
   currentCell,
 }: {
   wallsToShow: Walls;
   visited: boolean;
-  currentCell: boolean;
+  index: number;
+  currentCell: number;
 }) => {
   return (
     <CellWrapper
       size={`${dimensions.CELL_SIZE}px`}
       walls={wallsToShow}
       visited={visited}
-      currentCell={currentCell}
+      isCurrentCell={currentCell === index}
     />
   );
 };
 
-export default Cell;
+export default connect(select)(Cell);
 
 const CellWrapper = styled.div<{
   size: string;
   walls: Walls;
   visited: boolean;
-  currentCell: boolean;
+  isCurrentCell: boolean;
 }>`
   box-sizing: border-box;
   height: ${(props) => props.size};
@@ -38,5 +45,5 @@ const CellWrapper = styled.div<{
   border-bottom: 2px solid ${(props) => (props.walls.bottom ? '#000' : '#fff')};
   border-left: 2px solid ${(props) => (props.walls.left ? '#000' : '#fff')};
   background: ${(props) => (props.visited ? 'green' : 'transparent')};
-  ${(props) => (props.currentCell ? 'background: blue' : null)}
+  ${(props) => (props.isCurrentCell ? 'background: blue' : null)}
 `;
