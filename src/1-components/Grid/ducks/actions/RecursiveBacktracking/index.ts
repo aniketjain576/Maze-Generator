@@ -5,7 +5,7 @@ import { doSetCurrentCell } from '../actions';
 export function doRecursiveBacktracking(): NormalThunk {
   return (dispatch, getState) => {
     let cells = getState().grid.cells;
-    let cell: Cell = getCellByIndex(cells, 0);
+    let cell: Cell = getCellByIndex(0);
 
     let walls = cell.walls;
     let index = 5;
@@ -38,16 +38,8 @@ export function doRecursiveBacktracking(): NormalThunk {
     dispatch(doUpdateCell(cell, 5));
     dispatch(doSetCurrentCell(5));
     dispatch(doSetCurrentCell(6));
-    let count = 0;
-    const hello = setInterval(() => {
-      if (count < 100) {
-        dispatch(doSetCurrentCell(count++));
-      } else {
-        clearInterval(hello);
-      }
-    }, 200);
 
-    function getCellByIndex(cells: Cell[], index: number) {
+    function getCellByIndex(index: number) {
       return JSON.parse(JSON.stringify(cells[index]));
     }
   };
