@@ -1,29 +1,24 @@
 import { UPDATED_CELL } from './types';
 import { Cell, NormalThunk, Walls } from '../../interfaces';
 
-export function doMarkVisited(index: number): NormalThunk {
+export function doMarkVisited(cell: Cell): NormalThunk {
   return (dispatch, getState) => {
-    const cells: Cell[] = getState().grid.cells;
-    const visitedCell: Cell = JSON.parse(JSON.stringify(cells[index]));
-    visitedCell.visited = true;
-    dispatch(doUpdateCell(index, visitedCell));
+    cell.visited = true;
+    dispatch(doUpdateCell(cell));
   };
 }
 
-export function doUpdateWalls(index: number, walls: Walls): NormalThunk {
+export function doUpdateWalls(cell: Cell, walls: Walls): NormalThunk {
   return (dispatch, getState) => {
-    const cells: Cell[] = getState().grid.cells;
-    const targetCell: Cell = JSON.parse(JSON.stringify(cells[index]));
-    targetCell.walls = walls;
-    dispatch(doUpdateCell(index, targetCell));
+    cell.walls = walls;
+    dispatch(doUpdateCell(cell));
   };
 }
 
-function doUpdateCell(index: number, cell: Cell) {
+function doUpdateCell(cell: Cell) {
   return {
     type: UPDATED_CELL,
     payload: {
-      index: index,
       cell: cell,
     },
   };

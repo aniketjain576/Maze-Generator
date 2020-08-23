@@ -14,8 +14,8 @@ export default function cellReducer(state = initialState, action: Action) {
   switch (type) {
     case UPDATED_CELL: {
       const new_cells = JSON.parse(JSON.stringify(state.cells));
-      const { index, cell } = payload;
-      new_cells[index] = cell ? cell : new_cells[index];
+      const { cell } = payload;
+      new_cells[cell.index] = cell;
 
       return {
         ...state,

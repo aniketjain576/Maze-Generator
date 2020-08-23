@@ -23,8 +23,8 @@ export interface Cell {
 export interface Action {
   type: string;
   payload: {
-    index: number;
-    cell?: Cell;
+    index?: number;
+    cell: Cell;
   };
 }
 

@@ -12,9 +12,10 @@ export default function currentCellReducer(
   const { type, payload } = action;
   switch (type) {
     case SET_CURRENT_CELL: {
+      const { cell } = payload;
       return {
         ...state,
-        currentCellIndex: payload.index,
+        currentCellIndex: cell.index,
       };
     }
     default:

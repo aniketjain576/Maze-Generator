@@ -12,10 +12,10 @@ export function doRecursiveBacktracking(): NormalThunk {
 
       const nextCellIndex = findNeighbors(currentCellIndex, cells);
       if (nextCellIndex) {
-        dispatch(doMarkVisited(nextCellIndex));
+        dispatch(doMarkVisited(cells[nextCellIndex]));
         //remove wall between cuurentCellIndex and nextCellIndex
         //removeWalls(currentCellIndex, nextCellIndex);
-        dispatch(doSetCurrentCell(nextCellIndex));
+        dispatch(doSetCurrentCell(cells[nextCellIndex]));
       } else {
         //backtracking will go here
         clearInterval();
@@ -45,7 +45,7 @@ export function doRecursiveBacktracking(): NormalThunk {
       return (dispatch, getState) => {
         const walls = { ...cell.walls };
         walls[wallToRemove] = false;
-        dispatch(doUpdateWalls(cell.index, walls));
+        dispatch(doUpdateWalls(cell, walls));
       };
     }
 
