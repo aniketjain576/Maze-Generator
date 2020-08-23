@@ -14,7 +14,9 @@ export function doRecursiveBacktracking(): NormalThunk {
       if (nextCellIndex) {
         dispatch(doMarkVisited(cells[nextCellIndex]));
         //remove wall between cuurentCellIndex and nextCellIndex
-        //removeWalls(currentCellIndex, nextCellIndex);
+        dispatch(
+          removeWallsBetweenCells(cells[currentCellIndex], cells[nextCellIndex])
+        );
         dispatch(doSetCurrentCell(cells[nextCellIndex]));
       } else {
         //backtracking will go here
@@ -22,23 +24,39 @@ export function doRecursiveBacktracking(): NormalThunk {
       }
     }, 80);
 
-    function removeWallsBetweenCells(currentCell: number, nextCell: number) {
-      if (currentCell - nextCell === -1) {
-        //remove right wall of current
-        //remove left wall of next
-      }
-      if (currentCell - nextCell === 1) {
-        //remove left wall of current
-        //remove rigth wall of next
-      }
-      if (currentCell - nextCell === CELLS_PER_ROW) {
-        //remove top wall of current
-        //remove bottom wall of next
-      }
-      if (currentCell - nextCell === -1 * CELLS_PER_ROW) {
-        //remove bottom wall of current
-        //remove top wall of next
-      }
+    function removeWallsBetweenCells(
+      currentCell: Cell,
+      nextCell: Cell
+    ): NormalThunk {
+      return (dispatch, getState) => {
+        const currentCellIndex = currentCell.index;
+        const nextCellIndex = nextCell.index;
+
+        if (currentCellIndex - nextCellIndex === -1) {
+          //remove right wall of current
+          dispatch(removeWall(currentCell, WALL_TYPES.RIGHT));
+          //remove left wall of next
+          dispatch(removeWall(nextCell, WALL_TYPES.LEFT));
+        }
+        if (currentCellIndex - nextCellIndex === 1) {
+          //remove left wall of current
+          dispatch(removeWall(currentCell, WALL_TYPES.LEFT));
+          //remove rigth wall of next
+          dispatch(removeWall(nextCell, WALL_TYPES.RIGHT));
+        }
+        if (currentCellIndex - nextCellIndex === CELLS_PER_ROW) {
+          //remove top wall of current
+          dispatch(removeWall(currentCell, WALL_TYPES.TOP));
+          //remove bottom wall of next
+          dispatch(removeWall(nextCell, WALL_TYPES.BOTTOM));
+        }
+        if (currentCellIndex - nextCellIndex === -1 * CELLS_PER_ROW) {
+          //remove bottom wall of current
+          dispatch(removeWall(currentCell, WALL_TYPES.BOTTOM));
+          //remove top wall of next
+          dispatch(removeWall(nextCell, WALL_TYPES.TOP));
+        }
+      };
     }
 
     function removeWall(cell: Cell, wallToRemove: WALL_TYPES): NormalThunk {
