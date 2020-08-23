@@ -12,7 +12,6 @@ const initialState: { cells: Cell[]; stack: Cell[] } = {
 };
 
 export default function gridReducer(state = initialState, action: Action) {
-  //payload should have new cell
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
