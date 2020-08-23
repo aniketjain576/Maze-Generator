@@ -1,5 +1,6 @@
 import { TOTAL_NUM_CELLS, CELLS_PER_ROW } from '../../../../constants';
-import { Cell } from '../../../../interfaces';
+import { Cell, NormalThunk, WALL_TYPES } from '../../../../interfaces';
+import { doUpdateWalls } from '../../../../Cell/ducks/actions';
 
 export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
   const neighbors: number[] = [];
@@ -23,6 +24,41 @@ export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
   });
 
   return neighbors[Math.floor(Math.random() * neighbors.length)];
+}
+
+export function removeWallsBetweenCells(
+  currentCell: Cell,
+  nextCell: Cell
+): NormalThunk {
+  return (dispatch, getState) => {
+    const currentCellIndex = currentCell.index;
+    const nextCellIndex = nextCell.index;
+
+    if (currentCellIndex - nextCellIndex === -1) {
+      dispatch(removeWall(currentCell, WALL_TYPES.RIGHT));
+      dispatch(removeWall(nextCell, WALL_TYPES.LEFT));
+    }
+    if (currentCellIndex - nextCellIndex === 1) {
+      dispatch(removeWall(currentCell, WALL_TYPES.LEFT));
+      dispatch(removeWall(nextCell, WALL_TYPES.RIGHT));
+    }
+    if (currentCellIndex - nextCellIndex === CELLS_PER_ROW) {
+      dispatch(removeWall(currentCell, WALL_TYPES.TOP));
+      dispatch(removeWall(nextCell, WALL_TYPES.BOTTOM));
+    }
+    if (currentCellIndex - nextCellIndex === -1 * CELLS_PER_ROW) {
+      dispatch(removeWall(currentCell, WALL_TYPES.BOTTOM));
+      dispatch(removeWall(nextCell, WALL_TYPES.TOP));
+    }
+  };
+}
+
+function removeWall(cell: Cell, wallToRemove: WALL_TYPES): NormalThunk {
+  return (dispatch, getState) => {
+    const walls = { ...cell.walls };
+    walls[wallToRemove] = false;
+    dispatch(doUpdateWalls(cell, walls));
+  };
 }
 
 function isValidNeighborIndex(
