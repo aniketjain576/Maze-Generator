@@ -42,9 +42,9 @@ const CellWrapper = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 800;
   color: #f90;
-  font-size: 1.2em;
+  font-size: 1.3em;
 
   box-sizing: border-box;
   height: ${(props) => props.size};
@@ -53,6 +53,6 @@ const CellWrapper = styled.div<{
   border-right: 2px solid ${(props) => (props.walls.right ? '#000' : '#fff')};
   border-bottom: 2px solid ${(props) => (props.walls.bottom ? '#000' : '#fff')};
   border-left: 2px solid ${(props) => (props.walls.left ? '#000' : '#fff')};
-  background: ${(props) => (props.visited ? 'green' : 'transparent')};
+  background: ${(props) => (props.visited ? '#f90' : 'transparent')};
   ${(props) => (props.isCurrentCell ? 'background: blue' : null)}
 `;

@@ -14,7 +14,7 @@ export default function cellReducer(state = initialState, action: Action) {
       const new_cells = JSON.parse(JSON.stringify(state.cells));
       const { index, cell } = payload;
       new_cells[index] = cell ? cell : new_cells[index];
-      //console.log(new_cells);
+      console.log(new_cells);
 
       return {
         ...state,
@@ -40,7 +40,18 @@ function getInitState(): Cell[] {
     visited: false,
   };
 
+  // const firstCell = {
+  //   walls: {
+  //     top: true,
+  //     right: true,
+  //     bottom: true,
+  //     left: true,
+  //   },
+  //   visited: true,
+  // };
+
   let cells = [];
+  //cells.push(firstCell);
 
   for (var i = 0; i < TOTAL_NUM_CELLS; i++) {
     cells.push(cell);
