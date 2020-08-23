@@ -1,9 +1,31 @@
 import { TOTAL_NUM_CELLS, CELLS_PER_ROW } from '../../../../constants';
+import { Cell } from '../../../../interfaces';
 
-export function isValidIndex(
-  currentIndex: number,
-  neighborIndex: number
-): boolean {
+export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
+  const neighbors: number[] = [];
+  const potentialNeighbors: number[] = [];
+
+  //top cell index
+  potentialNeighbors.push(currentCellIndex - CELLS_PER_ROW);
+  //right cell index
+  potentialNeighbors.push(currentCellIndex + 1);
+  //bottom cell index
+  potentialNeighbors.push(currentCellIndex - 1);
+  //left cell index
+  potentialNeighbors.push(currentCellIndex + CELLS_PER_ROW);
+
+  potentialNeighbors.map((neighborIndex) => {
+    if (isValidIndex(currentCellIndex, neighborIndex)) {
+      if (!cells[neighborIndex].visited) {
+        neighbors.push(neighborIndex);
+      }
+    }
+  });
+
+  return neighbors[Math.floor(Math.random() * neighbors.length)];
+}
+
+function isValidIndex(currentIndex: number, neighborIndex: number): boolean {
   if (neighborIndex < 0) {
     return false;
   }
