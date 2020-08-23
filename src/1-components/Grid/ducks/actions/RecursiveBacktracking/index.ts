@@ -16,9 +16,9 @@ export function doRecursiveBacktracking(): NormalThunk {
         const currentCell = cells[currentCellIndex];
         const nextCell = cells[nextCellIndex];
         dispatch(doAddCellToStack(currentCell));
-        dispatch(doMarkVisited(nextCell));
         dispatch(removeWallsBetweenCells(currentCell, nextCell));
         dispatch(doSetCurrentCell(nextCell));
+        dispatch(doMarkVisited(nextCell));
       } else if (stack.length > 0) {
         const currentCell = stack.pop();
         currentCell && dispatch(doSetCurrentCell(currentCell));
