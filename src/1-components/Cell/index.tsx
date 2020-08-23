@@ -5,7 +5,7 @@ import { Walls } from '../interfaces';
 import { RootStateOrAny, connect } from 'react-redux';
 
 const select = (state: RootStateOrAny) => ({
-  currentCell: state.currentCell.currentCellIndex,
+  currentCell: state.cell.currentCellIndex,
 });
 
 const Cell = ({

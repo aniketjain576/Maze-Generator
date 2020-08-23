@@ -1,1 +1,1 @@
-export const SET_CURRENT_CELL = 'SET_CURRENT_CELL';
+export const UPDATED_CELL = 'UPDATED_CELL';

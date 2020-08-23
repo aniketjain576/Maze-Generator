@@ -25,7 +25,6 @@ function Grid({
     <>
       <Container size={`${GRID_SIZE}px`}>
         {grid.cells.map((cell: Cell) => {
-          //console.log(cell);
           return <>{renderCell(cell)}</>;
         })}
       </Container>

@@ -1,25 +1,18 @@
-import { UPDATED_CELL } from './types';
-import { TOTAL_NUM_CELLS } from '../../constants';
-import { Cell, Action, Walls, WALL_TYPES } from '../../interfaces';
-import { Key } from 'react';
-import { generateDefaultCells } from './helpers';
+import { SET_CURRENT_CELL } from './types';
+import { Action } from '../../interfaces';
 
-const initialState: { cells: Cell[] } = {
-  cells: generateDefaultCells(),
+const initialState: { currentCellIndex: number } = {
+  currentCellIndex: 0,
 };
 
 export default function cellReducer(state = initialState, action: Action) {
-  //payload should have new cell
   const { type, payload } = action;
   switch (type) {
-    case UPDATED_CELL: {
-      const new_cells = JSON.parse(JSON.stringify(state.cells));
+    case SET_CURRENT_CELL: {
       const { cell } = payload;
-      new_cells[cell.index] = cell;
-
       return {
         ...state,
-        cells: new_cells,
+        currentCellIndex: cell.index,
       };
     }
     default:

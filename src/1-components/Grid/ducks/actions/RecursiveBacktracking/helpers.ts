@@ -1,6 +1,6 @@
 import { TOTAL_NUM_CELLS, CELLS_PER_ROW } from '../../../../constants';
 import { Cell, NormalThunk, WALL_TYPES } from '../../../../interfaces';
-import { doUpdateWalls } from '../../../../Cell/ducks/actions';
+import { doUpdateWalls } from '..';
 
 export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
   const neighbors: number[] = [];
