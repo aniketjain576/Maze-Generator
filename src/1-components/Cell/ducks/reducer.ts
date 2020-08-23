@@ -1,5 +1,5 @@
 import { UPDATED_CELL } from './types';
-import dimensions from '../../constants';
+import { TOTAL_NUM_CELLS } from '../../constants';
 import { Cell, Action } from '../../interfaces';
 
 const initialState: { cells: Cell[] } = {
@@ -11,10 +11,10 @@ export default function cellReducer(state = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
-      const new_cells = state.cells;
-      let { index, cell } = payload;
+      const new_cells = JSON.parse(JSON.stringify(state.cells));
+      const { index, cell } = payload;
       new_cells[index] = cell ? cell : new_cells[index];
-      console.log(new_cells);
+      //console.log(new_cells);
 
       return {
         ...state,
@@ -39,8 +39,6 @@ function getInitState(): Cell[] {
     },
     visited: false,
   };
-
-  const { TOTAL_NUM_CELLS } = dimensions;
 
   let cells = [];
 

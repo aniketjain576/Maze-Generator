@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import dimensions from '../constants';
+import { CELL_SIZE } from '../constants';
 import { Walls } from '../interfaces';
 import { RootStateOrAny, connect } from 'react-redux';
 
@@ -21,11 +21,13 @@ const Cell = ({
 }) => {
   return (
     <CellWrapper
-      size={`${dimensions.CELL_SIZE}px`}
+      size={`${CELL_SIZE}px`}
       walls={wallsToShow}
       visited={visited}
       isCurrentCell={currentCell === index}
-    />
+    >
+      {index}
+    </CellWrapper>
   );
 };
 
@@ -37,6 +39,13 @@ const CellWrapper = styled.div<{
   visited: boolean;
   isCurrentCell: boolean;
 }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #f90;
+  font-size: 1.2em;
+
   box-sizing: border-box;
   height: ${(props) => props.size};
   width: ${(props) => props.size};

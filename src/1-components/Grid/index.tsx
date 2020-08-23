@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
-import dimensions from '../constants';
+import { GRID_SIZE } from '../constants';
 import { connect, RootStateOrAny } from 'react-redux';
 import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/index';
 import { Cell } from '../interfaces';
 
 const select = (state: RootStateOrAny) => ({
   grid: state.grid,
-  currentCell: state.currentCell.currentCellIndex,
 });
 
 const actions = {
@@ -17,19 +16,16 @@ const actions = {
 
 function Grid({
   grid,
-  currentCell,
   recursiveBacktracking,
 }: {
   grid: any;
-  currentCell: number;
   recursiveBacktracking: () => void;
 }) {
   return (
     <>
-      <Container size={`${dimensions.GRID_SIZE}px`}>
+      <Container size={`${GRID_SIZE}px`}>
         {grid.cells.map((cell: Cell) => {
-          console.log(cell);
-          const current = cell.index === currentCell;
+          //console.log(cell);
           return <>{renderCell(cell)}</>;
         })}
       </Container>
@@ -47,7 +43,7 @@ const Container = styled.div<{ size: string }>`
   max-width: ${(props) => props.size};
   max-height: ${(props) => props.size};
   margin: 0 auto;
-  margin-top: 25vh;
+  margin-top: 20vh;
 `;
 
 const Button = styled.button`
