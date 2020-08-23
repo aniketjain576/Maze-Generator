@@ -16,7 +16,6 @@ export default function cellReducer(state = initialState, action: Action) {
       const new_cells = JSON.parse(JSON.stringify(state.cells));
       const { index, cell } = payload;
       new_cells[index] = cell ? cell : new_cells[index];
-      console.log(new_cells);
 
       return {
         ...state,

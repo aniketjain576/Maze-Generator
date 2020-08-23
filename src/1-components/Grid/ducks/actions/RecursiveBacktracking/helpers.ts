@@ -15,7 +15,7 @@ export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
   potentialNeighbors.push(currentCellIndex + CELLS_PER_ROW);
 
   potentialNeighbors.map((neighborIndex) => {
-    if (isValidIndex(currentCellIndex, neighborIndex)) {
+    if (isValidNeighborIndex(currentCellIndex, neighborIndex)) {
       if (!cells[neighborIndex].visited) {
         neighbors.push(neighborIndex);
       }
@@ -25,7 +25,10 @@ export function findNeighbors(currentCellIndex: number, cells: Cell[]): number {
   return neighbors[Math.floor(Math.random() * neighbors.length)];
 }
 
-function isValidIndex(currentIndex: number, neighborIndex: number): boolean {
+function isValidNeighborIndex(
+  currentIndex: number,
+  neighborIndex: number
+): boolean {
   if (neighborIndex < 0) {
     return false;
   }

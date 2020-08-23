@@ -1,5 +1,5 @@
-import { doMarkVisited } from '../../../../Cell/ducks/actions';
-import { NormalThunk, Cell } from '../../../../interfaces';
+import { doMarkVisited, doUpdateWalls } from '../../../../Cell/ducks/actions';
+import { NormalThunk, Cell, WALL_TYPES } from '../../../../interfaces';
 import { doSetCurrentCell } from '../actions';
 import { findNeighbors } from './helpers';
 import { CELLS_PER_ROW } from '../../../../constants';
@@ -22,7 +22,7 @@ export function doRecursiveBacktracking(): NormalThunk {
       }
     }, 80);
 
-    function removeWalls(currentCell: number, nextCell: number) {
+    function removeWallsBetweenCells(currentCell: number, nextCell: number) {
       if (currentCell - nextCell === -1) {
         //remove right wall of current
         //remove left wall of next
@@ -39,6 +39,14 @@ export function doRecursiveBacktracking(): NormalThunk {
         //remove bottom wall of current
         //remove top wall of next
       }
+    }
+
+    function removeWall(cell: Cell, wallToRemove: WALL_TYPES): NormalThunk {
+      return (dispatch, getState) => {
+        const walls = { ...cell.walls };
+        walls[wallToRemove] = false;
+        dispatch(doUpdateWalls(cell.index, walls));
+      };
     }
 
     // const currentCellIndex = getState().currentCell.currentCellIndex;
