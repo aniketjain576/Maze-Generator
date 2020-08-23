@@ -1,11 +1,14 @@
-import { UPDATED_CELL } from './types';
-import { TOTAL_NUM_CELLS } from '../../constants';
-import { Cell, Action, Walls, WALL_TYPES } from '../../interfaces';
-import { Key } from 'react';
+import {
+  UPDATED_CELL,
+  PUSHED_CELL_TO_STACK,
+  POPPED_CELL_FROM_STACK,
+} from './types';
+import { Cell, Action } from '../../interfaces';
 import { generateDefaultCells } from './helpers';
 
-const initialState: { cells: Cell[] } = {
+const initialState: { cells: Cell[]; stack: Cell[] } = {
   cells: generateDefaultCells(),
+  stack: [],
 };
 
 export default function gridReducer(state = initialState, action: Action) {
@@ -13,15 +16,26 @@ export default function gridReducer(state = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
     case UPDATED_CELL: {
-      const new_cells = JSON.parse(JSON.stringify(state.cells));
+      const newCells = JSON.parse(JSON.stringify(state.cells));
       const { cell } = payload;
-      new_cells[cell.index] = cell;
+      newCells[cell.index] = cell;
 
       return {
         ...state,
-        cells: new_cells,
+        cells: newCells,
       };
     }
+
+    case PUSHED_CELL_TO_STACK: {
+      const { cell } = payload;
+      const newStack = state.stack;
+      newStack.push(cell);
+      return {
+        ...state,
+        stack: newStack,
+      };
+    }
+
     default:
       return state;
   }

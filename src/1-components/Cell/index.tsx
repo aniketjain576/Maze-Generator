@@ -25,9 +25,7 @@ const Cell = ({
       walls={wallsToShow}
       visited={visited}
       isCurrentCell={currentCell === index}
-    >
-      {index}
-    </CellWrapper>
+    />
   );
 };
 
@@ -39,13 +37,6 @@ const CellWrapper = styled.div<{
   visited: boolean;
   isCurrentCell: boolean;
 }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #f90;
-  font-size: 1.3em;
-
   box-sizing: border-box;
   height: ${(props) => props.size};
   width: ${(props) => props.size};
@@ -54,5 +45,5 @@ const CellWrapper = styled.div<{
   border-bottom: 2px solid ${({ walls }) => (walls.BOTTOM ? '#000' : '#f90')};
   border-left: 2px solid ${({ walls }) => (walls.LEFT ? '#000' : '#f90')};
   background: ${(props) => (props.visited ? '#f90' : 'transparent')};
-  ${(props) => (props.isCurrentCell ? 'background: blue' : null)}
+  ${(props) => (props.isCurrentCell ? 'background: purple' : null)}
 `;

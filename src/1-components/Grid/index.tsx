@@ -42,7 +42,7 @@ const Container = styled.div<{ size: string }>`
   max-width: ${(props) => props.size};
   max-height: ${(props) => props.size};
   margin: 0 auto;
-  margin-top: 20vh;
+  margin-top: 10vh;
 `;
 
 const Button = styled.button`
