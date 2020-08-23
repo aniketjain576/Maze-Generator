@@ -41,13 +41,6 @@ export function doRecursiveBacktracking(): NormalThunk {
       }
     }
 
-    enum WALL_TYPES {
-      TOP = 'TOP',
-      RIGHT = 'RIGHT',
-      BOTTOM = 'BOTTOM',
-      LEFT = 'LEFT',
-    }
-
     // const currentCellIndex = getState().currentCell.currentCellIndex;
     // const cells: Cell[] = getState().grid.cells;
 

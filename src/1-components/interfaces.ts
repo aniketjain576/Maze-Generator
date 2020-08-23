@@ -1,12 +1,18 @@
 import { RootStateOrAny } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
 
-export interface Walls {
-  top: boolean;
-  right: boolean;
-  bottom: boolean;
-  left: boolean;
+export enum WALL_TYPES {
+  TOP = 'TOP',
+  RIGHT = 'RIGHT',
+  BOTTOM = 'BOTTOM',
+  LEFT = 'LEFT',
 }
+
+type WallType = {
+  [key in WALL_TYPES]: boolean;
+};
+
+export interface Walls extends WallType {}
 
 export interface Cell {
   walls: Walls;
