@@ -35,6 +35,14 @@ export default function gridReducer(state = initialState, action: Action) {
       };
     }
 
+    case SET_CURRENT_CELL: {
+      const { cell } = payload;
+      return {
+        ...state,
+        currentCellIndex: cell.index,
+      };
+    }
+
     case PUSHED_CELL_TO_STACK: {
       const { cell } = payload;
       const newStack = state.stack;
@@ -45,15 +53,6 @@ export default function gridReducer(state = initialState, action: Action) {
       };
     }
 
-    case CLEARED_GRID: {
-      return {
-        ...state,
-        cells: generateDefaultCells(),
-        stack: [],
-        algorithmInterval: null,
-      };
-    }
-
     case SET_INTERVAL: {
       return {
         ...state,
@@ -61,11 +60,12 @@ export default function gridReducer(state = initialState, action: Action) {
       };
     }
 
-    case SET_CURRENT_CELL: {
-      const { cell } = payload;
+    case CLEARED_GRID: {
       return {
         ...state,
-        currentCellIndex: cell.index,
+        cells: generateDefaultCells(),
+        stack: [],
+        algorithmInterval: null,
       };
     }
 

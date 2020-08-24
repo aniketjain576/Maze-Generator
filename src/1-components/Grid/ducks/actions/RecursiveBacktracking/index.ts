@@ -10,9 +10,13 @@ export function doRecursiveBacktracking(): NormalThunk {
     const timer: CustomTimer = generateTimer;
 
     const backtracking = setInterval(() => {
-      const currentCellIndex = getState().grid.currentCellIndex;
-      const cells: Cell[] = getState().grid.cells;
-      const stack: Cell[] = getState().grid.stack;
+      timer.start();
+
+      const state = getState();
+
+      const currentCellIndex = state.grid.currentCellIndex;
+      const cells: Cell[] = state.grid.cells;
+      const stack: Cell[] = state.grid.stack;
 
       const nextCellIndex = findNeighbors(currentCellIndex, cells);
       if (nextCellIndex) {
@@ -23,9 +27,7 @@ export function doRecursiveBacktracking(): NormalThunk {
 
         dispatch(removeWallsBetweenCells(currentCell, nextCell));
 
-        timer.start();
         dispatch(doSetCurrentCell(nextCell));
-        timer.stop();
 
         dispatch(doMarkVisited(nextCell));
       } else if (stack.length > 0) {
@@ -35,6 +37,7 @@ export function doRecursiveBacktracking(): NormalThunk {
       } else {
         clearInterval(backtracking);
       }
+      timer.stop();
     }, 1);
     dispatch(doSetInterval(backtracking));
   };
