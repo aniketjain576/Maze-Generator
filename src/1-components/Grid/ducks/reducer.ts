@@ -11,7 +11,7 @@ import { generateDefaultCells } from './helpers';
 const initialState: {
   cells: Cell[];
   stack: Cell[];
-  algorithmInterval: number | null;
+  algorithmInterval: NodeJS.Timeout | null;
 } = {
   cells: generateDefaultCells(),
   stack: [],

@@ -44,7 +44,7 @@ export function doClearGrid() {
   };
 }
 
-export function doSetInterval(interval: number) {
+export function doSetInterval(interval: NodeJS.Timeout) {
   return {
     type: SET_INTERVAL,
     payload: {

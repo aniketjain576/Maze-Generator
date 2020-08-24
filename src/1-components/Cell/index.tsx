@@ -25,7 +25,9 @@ const Cell = ({
       walls={wallsToShow}
       visited={visited}
       isCurrentCell={currentCell === index}
-    />
+    >
+      {/* <CellCircle visited={visited} /> */}
+    </CellWrapper>
   );
 };
 
@@ -37,7 +39,11 @@ const CellWrapper = styled.div<{
   visited: boolean;
   isCurrentCell: boolean;
 }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
+  overflow: hidden;
   height: ${(props) => props.size};
   width: ${(props) => props.size};
   border-top: 2px solid ${({ walls }) => (walls.TOP ? '#000' : '#f90')};
@@ -46,4 +52,14 @@ const CellWrapper = styled.div<{
   border-left: 2px solid ${({ walls }) => (walls.LEFT ? '#000' : '#f90')};
   background: ${(props) => (props.visited ? '#f90' : 'transparent')};
   ${(props) => (props.isCurrentCell ? 'background: purple' : null)}
+`;
+
+const CellCircle = styled.div<{ visited: boolean }>`
+  background: #f90;
+  width: ${(props) => (props.visited ? '80px' : '10px')};
+  height: ${(props) => (props.visited ? '80px' : '10px')};
+  border-radius: 20px;
+
+  transition: height 1000ms ease-in 200;
+  transition: width 1000ms ease-in 200;
 `;
