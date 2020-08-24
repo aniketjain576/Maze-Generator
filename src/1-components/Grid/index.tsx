@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
 import { GRID_SIZE } from '../constants';
 import { connect, RootStateOrAny } from 'react-redux';
 import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/index';
 import { Cell } from '../interfaces';
+import { doResetGrid } from './ducks/actions';
 
 const select = (state: RootStateOrAny) => ({
   grid: state.grid,
@@ -12,15 +13,20 @@ const select = (state: RootStateOrAny) => ({
 
 const actions = {
   recursiveBacktracking: doRecursiveBacktracking,
+  resetGrid: doResetGrid,
 };
 
 function Grid({
   grid,
   recursiveBacktracking,
+  resetGrid,
 }: {
   grid: any;
-  recursiveBacktracking: () => void;
+  recursiveBacktracking: Function;
+  resetGrid: Function;
 }) {
+  const [isRunning, setIsRunning] = useState(false);
+
   return (
     <>
       <Container size={`${GRID_SIZE}px`}>
@@ -28,7 +34,31 @@ function Grid({
           return <>{renderCell(cell)}</>;
         })}
       </Container>
-      <Button onClick={recursiveBacktracking}>Start</Button>
+      <ButtonWrapper>
+        {isRunning ? (
+          <DisabledButton>Start</DisabledButton>
+        ) : (
+          <Button
+            color="#f90"
+            onClick={() => {
+              setIsRunning(true);
+              recursiveBacktracking();
+            }}
+          >
+            Start
+          </Button>
+        )}
+        <Button
+          color="purple"
+          onClick={() => {
+            setIsRunning(false);
+            clearInterval(grid.algorithmInterval);
+            resetGrid(grid.cells[0]);
+          }}
+        >
+          Reset
+        </Button>
+      </ButtonWrapper>
     </>
   );
 }
@@ -45,27 +75,41 @@ const Container = styled.div<{ size: string }>`
   margin-top: 10vh;
 `;
 
-const Button = styled.button`
-  box-sizing: border-box;
-  border: 2px solid purple;
-  display: block;
+const ButtonWrapper = styled.div`
   margin: 0 auto;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 30vw;
+  justify-content: space-between;
+`;
+
+const DisabledButton = styled.button`
+  box-sizing: border-box;
+  border: 2px solid #333;
   height: 50px;
   width: 120px;
   font-size: 1.5em;
-  margin-top: 50px;
-  background: white;
-  color: purple;
+  background: #a8a8a8;
+  color: #333;
   font-weight: bold;
   border-radius: 40px;
   letter-spacing: 3px;
   outline: none;
+`;
+
+const Button = styled(DisabledButton)<{ color: string }>`
+  border: 2px solid ${(props) => props.color};
+  background: white;
+  color: ${(props) => props.color};
+
   transition-duration: 300ms;
   cursor: pointer;
 
   :active {
     transition: ease-out;
-    background-color: purple;
+    background-color: ${(props) => props.color};
     color: white;
   }
 `;

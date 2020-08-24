@@ -2,13 +2,20 @@ import {
   UPDATED_CELL,
   PUSHED_CELL_TO_STACK,
   POPPED_CELL_FROM_STACK,
+  CLEAR_GRID,
+  SET_INTERVAL,
 } from './types';
 import { Cell, Action } from '../../interfaces';
 import { generateDefaultCells } from './helpers';
 
-const initialState: { cells: Cell[]; stack: Cell[] } = {
+const initialState: {
+  cells: Cell[];
+  stack: Cell[];
+  algorithmInterval: number | null;
+} = {
   cells: generateDefaultCells(),
   stack: [],
+  algorithmInterval: null,
 };
 
 export default function gridReducer(state = initialState, action: Action) {
@@ -32,6 +39,22 @@ export default function gridReducer(state = initialState, action: Action) {
       return {
         ...state,
         stack: newStack,
+      };
+    }
+
+    case CLEAR_GRID: {
+      return {
+        ...state,
+        cells: generateDefaultCells(),
+        stack: [],
+        algorithmInterval: null,
+      };
+    }
+
+    case SET_INTERVAL: {
+      return {
+        ...state,
+        algorithmInterval: payload.interval,
       };
     }
 

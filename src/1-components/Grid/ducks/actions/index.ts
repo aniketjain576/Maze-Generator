@@ -1,9 +1,11 @@
-import { Cell, NormalThunk, Walls } from '../../../interfaces';
+import { Cell, NormalThunk, Walls, Action } from '../../../interfaces';
 import {
   UPDATED_CELL,
   PUSHED_CELL_TO_STACK,
-  POPPED_CELL_FROM_STACK,
+  CLEAR_GRID,
+  SET_INTERVAL,
 } from '../types';
+import { doSetCurrentCell } from '../../../Cell/ducks/actions';
 
 export function doMarkVisited(cell: Cell): NormalThunk {
   return (dispatch, getState) => {
@@ -19,7 +21,7 @@ export function doUpdateWalls(cell: Cell, walls: Walls): NormalThunk {
   };
 }
 
-export function doAddCellToStack(cell: Cell) {
+export function doAddCellToStack(cell: Cell): Action {
   return {
     type: PUSHED_CELL_TO_STACK,
     payload: {
@@ -28,7 +30,30 @@ export function doAddCellToStack(cell: Cell) {
   };
 }
 
-function doUpdateCell(cell: Cell) {
+export function doResetGrid(firstCell: Cell): NormalThunk {
+  return (dispatch, getState) => {
+    dispatch(doClearGrid());
+    dispatch(doSetCurrentCell(firstCell));
+  };
+}
+
+export function doClearGrid() {
+  return {
+    type: CLEAR_GRID,
+    payload: {},
+  };
+}
+
+export function doSetInterval(interval: number) {
+  return {
+    type: SET_INTERVAL,
+    payload: {
+      interval: interval,
+    },
+  };
+}
+
+function doUpdateCell(cell: Cell): Action {
   return {
     type: UPDATED_CELL,
     payload: {

@@ -25,6 +25,7 @@ export interface Action {
   payload: {
     index?: number;
     cell: Cell;
+    interval?: number;
   };
 }
 
