@@ -31,7 +31,9 @@ function Grid({
     <>
       <Container size={`${GRID_SIZE}px`}>
         {grid.cells.map((cell: Cell) => {
-          return <>{renderCell(cell)}</>;
+          return (
+            <React.Fragment key={cell.index}>{renderCell(cell)}</React.Fragment>
+          );
         })}
       </Container>
       <ButtonWrapper>
@@ -87,12 +89,12 @@ const ButtonWrapper = styled.div`
 
 const DisabledButton = styled.button`
   box-sizing: border-box;
-  border: 2px solid #333;
+  border: 2px solid black;
   height: 50px;
   width: 120px;
   font-size: 1.5em;
-  background: #a8a8a8;
-  color: #333;
+  background: #777;
+  color: #a8a8a8;
   font-weight: bold;
   border-radius: 40px;
   letter-spacing: 3px;
@@ -100,11 +102,11 @@ const DisabledButton = styled.button`
 `;
 
 const Button = styled(DisabledButton)<{ color: string }>`
-  border: 2px solid ${(props) => props.color};
+  border: 2px solid black;
   background: white;
   color: ${(props) => props.color};
 
-  transition-duration: 300ms;
+  transition-duration: 250ms;
   cursor: pointer;
 
   :active {
