@@ -1,5 +1,5 @@
 import { NormalThunk, Cell, WALL_TYPES } from '../../../../interfaces';
-import { doSetCurrentCell } from '../../../../Cell/ducks/actions';
+import { doSetCurrentCell } from '..';
 import { findNeighbors, removeWallsBetweenCells } from './helpers';
 import { CELLS_PER_ROW } from '../../../../constants';
 import { doMarkVisited, doAddCellToStack, doSetInterval } from '..';
@@ -7,7 +7,7 @@ import { doMarkVisited, doAddCellToStack, doSetInterval } from '..';
 export function doRecursiveBacktracking(): NormalThunk {
   return (dispatch, getState) => {
     const backtracking = setInterval(() => {
-      const currentCellIndex = getState().cell.currentCellIndex;
+      const currentCellIndex = getState().grid.currentCellIndex;
       const cells: Cell[] = getState().grid.cells;
       const stack: Cell[] = getState().grid.stack;
 

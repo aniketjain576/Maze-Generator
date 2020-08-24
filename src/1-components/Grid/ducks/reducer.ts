@@ -2,18 +2,21 @@ import {
   UPDATED_CELL,
   PUSHED_CELL_TO_STACK,
   POPPED_CELL_FROM_STACK,
-  CLEAR_GRID,
+  CLEARED_GRID,
   SET_INTERVAL,
+  SET_CURRENT_CELL,
 } from './types';
 import { Cell, Action } from '../../interfaces';
 import { generateDefaultCells } from './helpers';
 
 const initialState: {
   cells: Cell[];
+  currentCellIndex: number;
   stack: Cell[];
   algorithmInterval: NodeJS.Timeout | null;
 } = {
   cells: generateDefaultCells(),
+  currentCellIndex: 0,
   stack: [],
   algorithmInterval: null,
 };
@@ -42,7 +45,7 @@ export default function gridReducer(state = initialState, action: Action) {
       };
     }
 
-    case CLEAR_GRID: {
+    case CLEARED_GRID: {
       return {
         ...state,
         cells: generateDefaultCells(),
@@ -55,6 +58,14 @@ export default function gridReducer(state = initialState, action: Action) {
       return {
         ...state,
         algorithmInterval: payload.interval,
+      };
+    }
+
+    case SET_CURRENT_CELL: {
+      const { cell } = payload;
+      return {
+        ...state,
+        currentCellIndex: cell.index,
       };
     }
 
