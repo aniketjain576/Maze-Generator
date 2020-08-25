@@ -8,7 +8,9 @@ import { Cell } from '../interfaces';
 import { doResetGrid } from './ducks/actions';
 
 const select = (state: RootStateOrAny) => ({
-  grid: state.grid,
+  cells: state.grid.cells,
+  currentCellIndex: state.grid.currentCellIndex,
+  interval: state.grid.algorithmInterval,
 });
 
 const actions = {
@@ -17,11 +19,15 @@ const actions = {
 };
 
 function Grid({
-  grid,
+  cells,
+  currentCellIndex,
+  interval,
   recursiveBacktracking,
   resetGrid,
 }: {
-  grid: any;
+  cells: Cell[];
+  currentCellIndex: number;
+  interval: NodeJS.Timer;
   recursiveBacktracking: Function;
   resetGrid: Function;
 }) {
@@ -30,9 +36,11 @@ function Grid({
   return (
     <>
       <Container size={`${GRID_SIZE}px`}>
-        {grid.cells.map((cell: Cell) => {
+        {cells.map((cell: Cell) => {
           return (
-            <React.Fragment key={cell.index}>{renderCell(cell)}</React.Fragment>
+            <React.Fragment key={cell.index}>
+              {renderCell(cell, currentCellIndex)}
+            </React.Fragment>
           );
         })}
       </Container>
@@ -54,8 +62,8 @@ function Grid({
           color="purple"
           onClick={() => {
             setIsRunning(false);
-            clearInterval(grid.algorithmInterval);
-            resetGrid(grid.cells[0]);
+            clearInterval(interval);
+            resetGrid(cells[0]);
           }}
         >
           Reset

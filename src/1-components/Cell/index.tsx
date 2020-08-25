@@ -2,36 +2,31 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { CELL_SIZE } from '../constants';
 import { Walls } from '../interfaces';
-import { RootStateOrAny, connect } from 'react-redux';
-
-const select = (state: RootStateOrAny) => ({
-  currentCell: state.grid.currentCellIndex,
-});
 
 const Cell = ({
   wallsToShow,
   visited,
   index,
-  currentCell,
+  currentCellIndex,
 }: {
   wallsToShow: Walls;
   visited: boolean;
   index: number;
-  currentCell: number;
+  currentCellIndex: number;
 }) => {
   return (
     <CellWrapper
       size={`${CELL_SIZE}px`}
       walls={wallsToShow}
       visited={visited}
-      isCurrentCell={currentCell === index}
+      isCurrentCell={currentCellIndex === index}
     >
       {/* <CellCircle visited={visited} /> */}
     </CellWrapper>
   );
 };
 
-export default connect(select)(Cell);
+export default Cell;
 
 const CellWrapper = styled.div<{
   size: string;
