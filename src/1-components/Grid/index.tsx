@@ -51,7 +51,7 @@ function Grid({
             <ArrowWrapper>
               <TextWrapper>
                 <Text>
-                  Click to watch an algorithm make a random and unqiue maze!
+                  Click to watch an algorithm create a random and unqiue maze!
                 </Text>
               </TextWrapper>
               <ArrowLongRight height={50} width={70} size={100} />
@@ -122,7 +122,7 @@ const ArrowWrapper = styled.div`
   opacity: 0;
 
   animation: fadeIn ease 2s;
-  animation-delay: 800ms;
+  animation-delay: 600ms;
   animation-fill-mode: forwards;
   @keyframes fadeIn {
     0% {

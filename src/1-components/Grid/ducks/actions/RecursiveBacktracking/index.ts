@@ -30,7 +30,7 @@ export function doRecursiveBacktracking(): NormalThunk {
         clearInterval(backtracking);
       }
       timer.stop();
-    }, 50);
+    }, 30);
     startAlgorithm(backtracking);
   };
 }
