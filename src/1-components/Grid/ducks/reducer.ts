@@ -1,10 +1,8 @@
 import {
-  UPDATED_CELL,
-  PUSHED_CELL_TO_STACK,
-  POPPED_CELL_FROM_STACK,
-  CLEARED_GRID,
   SET_INTERVAL,
-  SET_CURRENT_CELL,
+  MOVED_TO_NEXT_CELL,
+  MOVED_TO_PREVIOUS_CELL,
+  RESET_GRID,
 } from './types';
 import { Cell, Action } from '../../interfaces';
 import { generateDefaultCells } from './helpers';
@@ -24,32 +22,30 @@ const initialState: {
 export default function gridReducer(state = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
-    case UPDATED_CELL: {
-      const newCells = JSON.parse(JSON.stringify(state.cells));
-      const { cell } = payload;
-      newCells[cell.index] = cell;
-
+    case MOVED_TO_NEXT_CELL: {
       return {
         ...state,
-        cells: newCells,
+        cells: payload.cells,
+        stack: payload.stack,
+        currentCellIndex: payload.currentCellIndex,
       };
     }
 
-    case SET_CURRENT_CELL: {
-      const { cell } = payload;
+    case MOVED_TO_PREVIOUS_CELL: {
       return {
         ...state,
-        currentCellIndex: cell.index,
+        stack: payload.stack,
+        currentCellIndex: payload.currentCellIndex,
       };
     }
 
-    case PUSHED_CELL_TO_STACK: {
-      const { cell } = payload;
-      const newStack = state.stack;
-      newStack.push(cell);
+    case RESET_GRID: {
       return {
         ...state,
-        stack: newStack,
+        cells: generateDefaultCells(),
+        stack: [],
+        algorithmInterval: null,
+        currentCellIndex: 0,
       };
     }
 
@@ -57,15 +53,6 @@ export default function gridReducer(state = initialState, action: Action) {
       return {
         ...state,
         algorithmInterval: payload.interval,
-      };
-    }
-
-    case CLEARED_GRID: {
-      return {
-        ...state,
-        cells: generateDefaultCells(),
-        stack: [],
-        algorithmInterval: null,
       };
     }
 

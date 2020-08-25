@@ -23,9 +23,12 @@ export interface Cell {
 export interface Action {
   type: string;
   payload: {
-    index?: number;
     cell: Cell;
+    index?: number;
     interval?: number;
+    stack?: Cell[];
+    currentCellIndex?: number;
+    cells?: Cell[];
   };
 }
 
