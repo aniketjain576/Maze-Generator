@@ -11,11 +11,7 @@ import { startAlgorithm } from '../algorithmInterval';
 
 export function doRecursiveBacktracking(): NormalThunk {
   return (dispatch, getState) => {
-    const timer: CustomTimer = generateTimer;
-
     const backtracking = setInterval(() => {
-      timer.start();
-
       const state = getState();
       const currentCellIndex = state.grid.currentCellIndex;
       const cells: Cell[] = state.grid.cells;
@@ -29,7 +25,6 @@ export function doRecursiveBacktracking(): NormalThunk {
       } else {
         clearInterval(backtracking);
       }
-      timer.stop();
     }, 30);
     startAlgorithm(backtracking);
   };
