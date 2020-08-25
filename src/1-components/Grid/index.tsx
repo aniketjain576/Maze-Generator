@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
 import { GRID_SIZE, CELL_SIZE } from '../constants';
 import { connect, RootStateOrAny } from 'react-redux';
-import { doRecursiveBacktracking } from './ducks/actions/recursiveBacktracking/index';
+import { doRecursiveBacktracking } from './ducks/actions/recursiveBacktracking';
 import { Cell } from '../interfaces';
 import { doResetGrid } from './ducks/actions';
 import { stopAlgorithm } from './ducks/actions/algorithmInterval';
