@@ -122,7 +122,6 @@ const ArrowWrapper = styled.div`
   opacity: 0;
 
   animation: fadeIn ease 2s;
-  animation-delay: 600ms;
   animation-fill-mode: forwards;
   @keyframes fadeIn {
     0% {
