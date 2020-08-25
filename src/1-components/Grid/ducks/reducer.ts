@@ -1,5 +1,4 @@
 import {
-  SET_INTERVAL,
   MOVED_TO_NEXT_CELL,
   MOVED_TO_PREVIOUS_CELL,
   RESET_GRID,
@@ -11,12 +10,10 @@ const initialState: {
   cells: Cell[];
   currentCellIndex: number;
   stack: Cell[];
-  algorithmInterval: NodeJS.Timeout | null;
 } = {
   cells: generateDefaultCells(),
   currentCellIndex: 0,
   stack: [],
-  algorithmInterval: null,
 };
 
 export default function gridReducer(state = initialState, action: Action) {
@@ -46,13 +43,6 @@ export default function gridReducer(state = initialState, action: Action) {
         stack: [],
         algorithmInterval: null,
         currentCellIndex: 0,
-      };
-    }
-
-    case SET_INTERVAL: {
-      return {
-        ...state,
-        algorithmInterval: payload.interval,
       };
     }
 

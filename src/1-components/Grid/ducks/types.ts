@@ -1,4 +1,3 @@
-export const SET_INTERVAL = 'SET_INTERVAL';
 export const MOVED_TO_NEXT_CELL = 'MOVED_TO_NEXT_CELL';
 export const MOVED_TO_PREVIOUS_CELL = 'MOVED_TO_PREVIOUS_CELL';
 export const RESET_GRID = 'RESET_GRID';

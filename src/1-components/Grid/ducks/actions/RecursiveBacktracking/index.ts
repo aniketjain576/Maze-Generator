@@ -5,9 +5,9 @@ import {
   markNextCellVisited,
 } from './helpers';
 import { CELLS_PER_ROW } from '../../../../constants';
-import { doSetInterval } from '..';
 import generateTimer, { CustomTimer } from './timer';
 import { MOVED_TO_NEXT_CELL, MOVED_TO_PREVIOUS_CELL } from '../../types';
+import { startAlgorithm } from '../algorithmInterval';
 
 export function doRecursiveBacktracking(): NormalThunk {
   return (dispatch, getState) => {
@@ -31,7 +31,7 @@ export function doRecursiveBacktracking(): NormalThunk {
       }
       timer.stop();
     }, 0);
-    dispatch(doSetInterval(backtracking));
+    startAlgorithm(backtracking);
   };
 }
 

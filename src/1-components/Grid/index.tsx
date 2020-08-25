@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
 import { GRID_SIZE } from '../constants';
 import { connect, RootStateOrAny } from 'react-redux';
-import { doRecursiveBacktracking } from './ducks/actions/RecursiveBacktracking/index';
+import { doRecursiveBacktracking } from './ducks/actions/recursiveBacktracking/index';
 import { Cell } from '../interfaces';
 import { doResetGrid } from './ducks/actions';
+import { stopAlgorithm } from './ducks/actions/algorithmInterval';
 
 const select = (state: RootStateOrAny) => ({
   cells: state.grid.cells,
   currentCellIndex: state.grid.currentCellIndex,
-  interval: state.grid.algorithmInterval,
 });
 
 const actions = {
@@ -21,13 +21,11 @@ const actions = {
 function Grid({
   cells,
   currentCellIndex,
-  interval,
   recursiveBacktracking,
   resetGrid,
 }: {
   cells: Cell[];
   currentCellIndex: number;
-  interval: NodeJS.Timer;
   recursiveBacktracking: Function;
   resetGrid: Function;
 }) {
@@ -62,8 +60,8 @@ function Grid({
           color="purple"
           onClick={() => {
             setIsRunning(false);
-            clearInterval(interval);
-            resetGrid(cells[0]);
+            stopAlgorithm();
+            resetGrid();
           }}
         >
           Reset
