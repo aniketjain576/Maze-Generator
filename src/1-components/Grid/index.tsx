@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import renderCell from '../Cell/renderCell';
-import { GRID_SIZE } from '../constants';
+import { GRID_SIZE, CELL_SIZE } from '../constants';
 import { connect, RootStateOrAny } from 'react-redux';
 import { doRecursiveBacktracking } from './ducks/actions/recursiveBacktracking/index';
 import { Cell } from '../interfaces';
 import { doResetGrid } from './ducks/actions';
 import { stopAlgorithm } from './ducks/actions/algorithmInterval';
+import { ArrowLongRight } from '@styled-icons/entypo/ArrowLongRight';
 
 const select = (state: RootStateOrAny) => ({
   cells: state.grid.cells,
@@ -46,15 +47,25 @@ function Grid({
         {isRunning ? (
           <DisabledButton>Start</DisabledButton>
         ) : (
-          <Button
-            color="#f90"
-            onClick={() => {
-              setIsRunning(true);
-              recursiveBacktracking();
-            }}
-          >
-            Start
-          </Button>
+          <>
+            <ArrowWrapper>
+              <TextWrapper>
+                <Text>
+                  Click to watch an algorithm make a random and unqiue maze!
+                </Text>
+              </TextWrapper>
+              <ArrowLongRight height={50} width={70} size={100} />
+            </ArrowWrapper>
+            <Button
+              color="#f90"
+              onClick={() => {
+                setIsRunning(true);
+                recursiveBacktracking();
+              }}
+            >
+              Start
+            </Button>
+          </>
         )}
         <Button
           color="purple"
@@ -89,11 +100,39 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 30vw;
-  justify-content: space-between;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  max-width: 150px;
+`;
+
+const ArrowWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  left: 18vw;
+  align-items: center;
+
+  animation: fadeIn ease 2s;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const DisabledButton = styled.button`
+  margin: 0 70px;
   box-sizing: border-box;
   border: 2px solid black;
   height: 50px;
@@ -109,7 +148,7 @@ const DisabledButton = styled.button`
 
 const Button = styled(DisabledButton)<{ color: string }>`
   border: 2px solid black;
-  background: white;
+  background: #f1f1f1;
   color: ${(props) => props.color};
 
   transition-duration: 250ms;
