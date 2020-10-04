@@ -41,7 +41,6 @@ export default function gridReducer(state = initialState, action: Action) {
         ...state,
         cells: generateDefaultCells(),
         stack: [],
-        algorithmInterval: null,
         currentCellIndex: 0,
       };
     }
