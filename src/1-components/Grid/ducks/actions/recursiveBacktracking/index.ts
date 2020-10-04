@@ -26,6 +26,7 @@ export function doRecursiveBacktracking(): NormalThunk {
         clearInterval(backtracking);
       }
     }, 30);
+
     startAlgorithm(backtracking);
   };
 }

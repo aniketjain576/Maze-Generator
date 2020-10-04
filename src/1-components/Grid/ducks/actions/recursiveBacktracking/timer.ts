@@ -18,8 +18,8 @@
 // ///////////
 
 export interface CustomTimer {
-  stop: Function;
   start: Function;
+  stop: Function;
 }
 
 function generateTimer(): CustomTimer {
